@@ -1,6 +1,7 @@
 package com.example.foregroundandbackgroundservice24112020;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this,MyBackgroundService.class);
                 intent.putExtra("chuoi","hello");
                 startService(intent);
+            }
+        });
+
+        mBtnForeground.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,MyForegroundService.class);
+                ContextCompat.startForegroundService(MainActivity.this,intent);
             }
         });
     }
