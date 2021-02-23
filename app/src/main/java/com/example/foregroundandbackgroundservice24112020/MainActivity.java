@@ -2,6 +2,7 @@ package com.example.foregroundandbackgroundservice24112020;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
         mBtnBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this,MyBackgroundService.class);
+                intent.putExtra("chuoi","hello");
+                startService(intent);
             }
         });
     }
