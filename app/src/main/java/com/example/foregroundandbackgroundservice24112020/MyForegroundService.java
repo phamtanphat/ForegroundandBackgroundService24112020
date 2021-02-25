@@ -3,7 +3,9 @@ package com.example.foregroundandbackgroundservice24112020;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -43,11 +45,25 @@ public class MyForegroundService extends Service {
     }
 
     private NotificationCompat.Builder createNotification(){
+        Intent intent = new Intent(this , MainActivity.class);
+        intent.putExtra("activity","Cập nhật ứng dụng");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        // Gửi dữ liệu cho activity , broadcast , Service..
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this,
+                123,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+
         NotificationCompat.Builder notify = new NotificationCompat.Builder(MyForegroundService.this, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.btn_star)
                 .setShowWhen(true)
                 .setContentTitle("Thông báo mới")
                 .setContentText("Có phiên bản mới")
+                .addAction(R.mipmap.ic_launcher , "Cập nhật ứng dụng" ,pendingIntent )
                 .setPriority(2);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
